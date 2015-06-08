@@ -1,0 +1,17 @@
+<h1> Support Requests</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Department</th>
+    <th>Message</th>
+    <th>Actions</th>
+  </tr>
+  <% @requests.each do |request| %>
+  <tr>
+    <td> <%= request.name %></td>
+    <td> <%= request.email %></td>
+    <td> <%= request.department %></td>
+    <td> <%= request.message %></td>
+<% end %>
