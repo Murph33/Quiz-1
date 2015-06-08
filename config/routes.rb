@@ -4,4 +4,8 @@ Rails.application.routes.draw do
 
   resources :requests
 
+  post "requests/:id" => "requests#done_toggle"
+
+  post "/search" => "requests#search"
+
 end

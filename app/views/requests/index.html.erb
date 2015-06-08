@@ -1,5 +1,10 @@
 <h1> Support Requests</h1>
 
+<%= form_tag "/search", method: "post" do %>
+  <%= label_tag :q, "Search" %>
+  <%= text_field_tag :q %>
+  <%= submit_tag "Search" %>
+<% end %>
 <table>
   <tr>
     <th>Name</th>
@@ -11,7 +16,11 @@
   <% @requests.each do |request| %>
   <tr>
     <td> <%= request.name %></td>
-    <td> <%= request.email %></td>
+    <td> <%= mail_to request.email %></td>
     <td> <%= request.department %></td>
     <td> <%= request.message %></td>
+    <td> <%= link_to "Edit", edit_request_path(request) %>
+         <%= link_to "Remove", request_path(request),
+              method: :delete, data: {confirm: "Confirm Removal"} %>
+          <%= link_to request.done, request_path(request), method: :post %></td>
 <% end %>
