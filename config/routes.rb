@@ -6,6 +6,6 @@ Rails.application.routes.draw do
 
   post "requests/:id" => "requests#done_toggle"
 
-  get "/search2" => "requests#search2"
+  get "/search" => "requests#search"
 
 end
