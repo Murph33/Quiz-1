@@ -1,0 +1,24 @@
+<h1> Search Results</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Department</th>
+    <th>Message</th>
+    <th>Actions</th>
+  </tr>
+
+  <% @requests.each do |request| %>
+    <tr>
+      <td> <%= request.name %></td>
+      <td> <%= mail_to request.email %></td>
+      <td> <%= request.department %></td>
+      <td> <%= request.message %></td>
+      <td> <%= link_to "Edit", edit_request_path(request) %>
+           <%= link_to "Remove", request_path(request),
+                method: :delete, data: {confirm: "Confirm Removal"} %>
+           <%= link_to request.done, request_path(request), method: :post %></td>
+    </tr>
+  <% end %>
+</table>
