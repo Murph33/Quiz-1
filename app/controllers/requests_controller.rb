@@ -1,5 +1,5 @@
 class RequestsController < ApplicationController
-
+  before_action :find_request, only: [:edit, :update, :destroy, :show]
   def index
     @requests = Request.order("done desc")
   end
@@ -9,7 +9,6 @@ class RequestsController < ApplicationController
   end
 
   def show
-    @request = Request.find params[:id]
   end
 
   def create
@@ -24,12 +23,10 @@ class RequestsController < ApplicationController
   end
 
   def edit
-    @request = Request.find params[:id]
   end
 
   def update
     request_params = params.require(:request).permit(:name, :email, :department, :message)
-    @request = Request.find params[:id]
     if @request.update request_params
       redirect_to request_path(@request), notice: "Request Updated"
     else
@@ -38,7 +35,6 @@ class RequestsController < ApplicationController
   end
 
   def destroy
-    @request = Request.find params[:id]
     @request.destroy
     redirect_to requests_path, notice: "Request Removed"
   end
@@ -55,7 +51,21 @@ class RequestsController < ApplicationController
   end
 
   def search
-    render text: params.inspect
+    @q = params.permit(:q)
+    @requests = Request.where(["name ilike ? OR message ilike ? OR email ilike ? ", "%#{@q[:q]}%", "%#{@q[:q]}%", "%#{@q[:q]}%"]).order("done desc")
+  end
+
+  def search2
+    @q = params.permit(:q)
+    @q = @q[:q]
+    
+
+  end
+
+  private
+
+  def find_request
+    @request = Request.find params[:id]
   end
 
 end
