@@ -52,13 +52,13 @@ class RequestsController < ApplicationController
 
   def search
     @q = params.permit(:q)
-    @requests = Request.where(["name ilike ? OR message ilike ? OR email ilike ? ", "%#{@q[:q]}%", "%#{@q[:q]}%", "%#{@q[:q]}%"]).order("done desc")
+    @requests = Request.where(["name ilike ? OR message ilike ? OR email ilike ? ", "%#{@q[:q]}%", "%#{@q[:q]}%", "%#{@q[:q]}%"]).paginate(:page => params[:page]).order("done desc")
   end
 
   def search2
     @q = params.permit(:q)
     @q = @q[:q]
-    
+
 
   end
 
